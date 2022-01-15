@@ -33,3 +33,37 @@ To capture the composite transposons in incomplete genomes, assembly graphs buil
 ### Outputs 
 
 The spread of composite transposons can be searched and visuliazed for better understanding with phylogenetic trees. Spread between different species can be shown.
+
+
+
+# Requirements
+
+- Linux (not tested on Windows and MacOS)
+- [Phyton](https://www.python.org/) 3.8 or later
+
+## The required packages 
+
+- [ISEScan](https://github.com/xiezhq/ISEScan) ISEScan-1.7.2.3
+- [prokka](https://github.com/tseemann/prokka) prokka-1.14.5
+- [networkc](https://github.com/networkx/networkx) networkx-2.6.3
+
+# Installation 
+
+We recommend to use conda but not necessary
+
+```
+conda update conda --all
+conda create --name excota python=3.8
+conda activate excota
+
+```
+
+You can use pip to install dependecies
+
+```
+pip install isescan
+conda install -c conda-forge -c bioconda -c defaults prokka
+pip install networkx[all]
+```
+
+
