@@ -1,0 +1,16 @@
+dist: xenial
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y wget
+language: python
+python:
+  - "2.7"
+  - "3.4"
+script:
+  - mkdir build
+  - cd build && cmake .. -DCOVERAGE=ON
+  - make -j2 simple_test
+  - sudo make install
+  - megahit --test
+  - megahit --test --kmin-1pass
+  - megahit --test --no-hw-accelo || echo "Codecov did not collect coverage reports"
