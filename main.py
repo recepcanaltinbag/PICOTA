@@ -40,7 +40,7 @@ assembly_driver(raw_file, "se", threads=12, out_folder_for_assembly)
 # ----------------------------------------------------------------
 # 7- PARSING ISESCAN and FILTER THE RESULT
 # ----------------------------------------------------------------
-cycles_file_path = 'cycles/cycles_no1.fasta'
+cycles_file_path =  out_folder + '/cycles/cycles_no1.fasta'
 threads = 2
 out_folder_for_IS = out_folder + '/IS_Find'
 insertion_sequence_finder(cycles_file_path, out_folder= out_folder_for_IS, threads=threads)
