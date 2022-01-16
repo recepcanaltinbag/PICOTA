@@ -1,7 +1,7 @@
 # CMPE549-TermProjectTemplate
 A template for term project 
 
-## A tool for *de-novo* Identification of Composite Transposons
+## An extendible [P]()ipeline for de-novo [I]()dentification of [CO]()mposite [T]()ransposons from [A]()ssembly graphs (PICOTA)
 
 
 
