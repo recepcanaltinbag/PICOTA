@@ -12,9 +12,13 @@ A template for term project
 
 ## The required packages 
 
+- [networkx](https://github.com/networkx/networkx) networkx-2.6.3
+- [BioPython]() biopython 
+
+## The required Tools
+
 - [ISEScan](https://github.com/xiezhq/ISEScan) ISEScan-1.7.2.3
 - [prokka](https://github.com/tseemann/prokka) prokka-1.14.5
-- [networkx](https://github.com/networkx/networkx) networkx-2.6.3
 
 # Installation 
 
