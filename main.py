@@ -22,11 +22,11 @@ file_end_type = "se" #USER-(required) single_end se paired_end pe
 q_type = "sanger" #USER-(required) quality type of the fastq file (sanger, illumina, solexa)
 qual_threshold = "30" #USER-quality-threshold
 raw_file = ["raw_input/SRR639753.fastq"] #USER-(required)-a list of raw files, for sinle end file it is only one element, for paired end two elements
-out_folder_for_filtering = output + '/filtering' #USER-(can be optional)
+out_folder_for_filtering = out_folder + '/filtering' #USER-(can be optional)
 if not os.path.exists(out_folder_for_filtering):
         os.makedirs(out_folder_for_filtering)
 raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_folder_for_filtering)
-out_folder_for_assembly = output + '/assembly' #USER-(can be optional)
+out_folder_for_assembly = out_folder + '/assembly' #USER-(can be optional)
 k_list = [] #USER-(optional) 
 # k_list = [] is optional argument user can select wanted k-mers, only odd numbers
 
