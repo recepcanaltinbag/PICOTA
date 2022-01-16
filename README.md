@@ -64,14 +64,18 @@ There are too many tools to find the transposons but there is a few tools relate
 <img src="https://www.researchgate.net/profile/Tahir-Mehmood-14/publication/281491178/figure/fig2/AS:667643811987466@1536190097833/Number-of-completed-and-incomplete-genomes-sequencing-projects-on-Genomes-OnLine-Database.png" width="600" />
 </p>
 
+<p align="center">
+<img src="figures/limitation.png" width="600" />
+</p>
 
 ### Suggested Improvements
 
 To capture the composite transposons in incomplete genomes, assembly graphs built from the raw reads can be very helpful unlike using fasta sequences (TnComp_Finder uses fasta sequences). Graph algorithms can be used to find transposon motifs and possible composite transposons can be identified even *de-novo*. Then, the candidates can be searched in existing gene databases for functional analysis. 
 
 <p align="center">
-<img src="CompTr.svg" width="1600" />
+<img src="figures/flowchart.png" width="600" />
 </p>
+
 
 
 ### Outputs 
