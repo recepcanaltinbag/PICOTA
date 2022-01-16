@@ -40,3 +40,17 @@ def raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_fold
         filtering_visualization(raw_file_2_path)
         filtering_visualization(f2_path)
  
+
+# ----------------------------------------------------------------
+# 2- FILTERING RESULT VISUALIZATION WIHT FASTQC
+# ----------------------------------------------------------------
+'''
+fastqc seqfile1 seqfile2 .. seqfileN
+
+    fastqc [-o output dir] [--(no)extract] [-f fastq|bam|sam] 
+           [-c contaminant file] seqfile1 .. seqfileN
+
+'''
+def filtering_visualization(file_path):
+    args = f"programs/fastqc/fastqc {file_path} -o raw_input" 
+    my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
