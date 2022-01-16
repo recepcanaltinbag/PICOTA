@@ -12,15 +12,30 @@ Usage:
     -2                       <pe2>          comma-separated list of fasta/q paired-end #2 files, paired with files in <pe1>
     --12                     <pe12>         comma-separated list of interleaved fasta/q paired-end files
     -r/--read                <se>           comma-separated list of fasta/q single-end files
+    --k-list                 <int,int,..>   comma-separated list of kmer size
+                                            all must be odd, in the range 15-255, increment <= 28)
+                                            [21,29,39,59,79,99,119,141]
+
 '''
 
 # file path is list
-def assembly_driver(file_path, file_end_type, threads=1):
+def assembly_driver(file_path, file_end_type, threads=1, out_folder, k_list = []):
+    if k_list == []:
+      k_mer_value = '--k-list' + ''
+    else:
+      k_mer_value = '--k-list' + ','.join(k_list)
+    
     if file_end_type == "se":
-        args = f"programs/megahit/build/megahit -r {file_path[0]} -o assembly_result/deneme -t {str(threads)} --keep-tmp-files" 
+        args = f"programs/megahit/build/megahit -r {file_path[0]} -o {out_folder} -t {str(threads)} --keep-tmp-files {k_mer_value}" 
         my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
-
-
+    elif file_end_type == "pe":
+        args = f"programs/megahit/build/megahit -1 {file_path[0]} -2 {file_path[1]} -o {out_folder} -t {str(threads)} --keep-tmp-files {k_mer_value}" 
+        my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
+    
+    convert_to_fastg_and_gfa(out_folder)
+    
+    
+    
 def convert_to_fastg_and_gfa(assembly_path):
     fastg_out = assembly_path + '/fastg_files'
     if not os.path.exists(fastg_out):
