@@ -1,3 +1,7 @@
+<p align="center">
+<img src="figures/picota_logo.png" width="150" />
+</p>
+
 ## An extendible [P]()ipeline for de-novo [I]()dentification of [CO]()mposite [T]()ransposons from [A]()ssembly graphs (PICOTA)
 
 
