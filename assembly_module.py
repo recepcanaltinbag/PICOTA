@@ -1,4 +1,7 @@
-
+import subprocess
+import os
+import glob
+from Bio import SeqIO
 
 # ----------------------------------------------------------------
 # 3- ASSEMBLY WITH MEGAHIT
