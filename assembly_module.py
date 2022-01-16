@@ -43,7 +43,7 @@ def convert_to_fastg_and_gfa(assembly_path):
     fastg_out = assembly_path + '/fastg_files'
     if not os.path.exists(fastg_out):
         os.makedirs(fastg_out)
-    gfa_out = assembly_path + 'gfa_files'
+    gfa_out = assembly_path + '/gfa_files'
     if not os.path.exists(gfa_out):
         os.makedirs(gfa_out)
     
