@@ -1,6 +1,3 @@
-# CMPE549-TermProjectTemplate
-A template for term project 
-
 ## An extendible [P]()ipeline for de-novo [I]()dentification of [CO]()mposite [T]()ransposons from [A]()ssembly graphs (PICOTA)
 
 
