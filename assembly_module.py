@@ -22,7 +22,7 @@ Usage:
 '''
 
 # file path is list
-def assembly_driver(file_path, file_end_type, threads=1, out_folder, k_list = []):
+def assembly_driver(file_path, file_end_type,  out_folder, threads=1,k_list = []):
     if k_list == []:
       k_mer_value = '--k-list' + ''
     else:
