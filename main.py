@@ -7,6 +7,7 @@ from isescan_parser import parse_driver
 from quality_control_module import raw_read_filtering
 from assembly_module import assembly_driver
 from cycle_finder import cycle_finder_driver
+from kmer_choser import best_kmer
 from is_analysis_module import insertion_sequence_finder
 from annotation module import *
 from datetime import datetime
@@ -20,9 +21,11 @@ parser.add_argument('rtype', choices=['se', 'pe'], help='Type of reads: se for s
 parser.add_argument('qtype', choices=['sanger', 'illumina', 'solexa'], help='Quality control type: sanger, illumina or solexa')
 parser.add_argument('--output', '-o' ,default=dt_string, help='Main output file for the run')
 parser.add_argument('--qthreshold', '-q' ,default="30", help='Quality threshold')
+parser.add_argument('--ilengthfilter', '-t' ,default=None, type=int, help='Length filter for finding all cycles')
 parser.add_argument('--outfiltering', '-f', default='/filtering', help='Output file for filtering')
 parser.add_argument('--outassembly', '-a', default='/assembly', help='Output file for assembly')
-parser.add_argument('--outcycles', '-c', default='/cycles/cycles_no1.fasta', help='Output file for cycles')
+parser.add_argument('--outcycles', '-c', default='/cycles', help='Output file for cycles')
+parser.add_argument('--cyclefasta', '-s', default='cycles_no1.fasta', help='Output fasta file for cycles')
 parser.add_argument('--threads', '-t', default=2, type=int, help='Main output file for the run')
 parser.add_argument('--outis', '-i', default='/IS_Find', help='Output file for IS_Finder')
 parser.add_argument('--outfiltered', '-f', default='"filtered_out.fasta', help='Output file for filtered cycles')
@@ -55,12 +58,19 @@ assembly_driver(raw_file, file_end_type, out_folder_for_assembly, threads=12, k_
 # ----------------------------------------------------------------
 # FILTERING AND ASSEMBLY
 # ----------------------------------------------------------------
-
+best_kmer_file = kmer_choser(out_folder_for_assembly)
+cycles_file_path =  out_folder + args.outcycles #USER-(can be optional or given by the system) ++
+if not os.path.exists(cycles_file_path):
+        os.makedirs(cycles_file_path)
+cycles_fasta = args.cyclefasta 
+cycles_file_path = cycles_file_path + cycles_fasta
+initial_length_filter = args.ilengthfilter
+cycle_finder_driver(best_kmer_file, output=cycles_file_path, shorter_than=initial_length_filter)
 
 # ----------------------------------------------------------------
 # 7- PARSING ISESCAN and FILTER THE RESULT
 # ----------------------------------------------------------------
-cycles_file_path =  out_folder + args.outcycles #USER-(can be optional or given by the system) ++
+
 threads = args.threads #USER-(can be optional) ++
 out_folder_for_IS = out_folder + args.outis #USER-(can be optional or given by the system) ++
 insertion_sequence_finder(cycles_file_path, out_folder= out_folder_for_IS, threads=threads)
