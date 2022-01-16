@@ -10,7 +10,7 @@ A template for term project
 - Linux (not tested on Windows and MacOS)
 - [Phyton](https://www.python.org/) 3.8 or later
 
-## The required packages 
+## The required Packages 
 
 - [networkx](https://github.com/networkx/networkx) networkx-2.6.3
 - [BioPython]() biopython 
