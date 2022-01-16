@@ -76,6 +76,11 @@ To capture the composite transposons in incomplete genomes, assembly graphs buil
 <img src="figures/flowchart.png" width="600" />
 </p>
 
+### PIPELINE 
+
+<p align="center">
+<img src="figures/pipeline.png" width="600" />
+</p>
 
 
 ### Outputs 
