@@ -50,7 +50,7 @@ if not os.path.exists(out_folder_for_filtering):
 
 
 #######!!!!!!!!!!!!!!!!!!!!!!!!
-#raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_folder_for_filtering)
+raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_folder_for_filtering)
 
 out_folder_for_assembly = out_folder + args.outassembly #USER-(can be optional) ++
 k_list = args.klist #USER-(optional) ++
@@ -60,7 +60,7 @@ k_list = args.klist #USER-(optional) ++
 fastq_filtered_list = glob.glob(out_folder_for_filtering + '/filtered*.fastq')
 print(fastq_filtered_list)
 #######!!!!!!!!!!!!!!!!!!!!!!!!
-#assembly_driver(fastq_filtered_list, file_end_type, out_folder_for_assembly, threads=12, k_list=k_list)
+assembly_driver(fastq_filtered_list, file_end_type, out_folder_for_assembly, threads=12, k_list=k_list)
 
 
 # ----------------------------------------------------------------
