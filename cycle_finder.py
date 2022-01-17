@@ -41,7 +41,7 @@ def parse_gfa(path_to_gfa):
 
 
 def generate_genome_graph(node_dict, edge_dict):
-
+    print('generated genome graph')
     G = nx.DiGraph()
 
     #add nodes and edges to the directed graph
@@ -61,22 +61,29 @@ def reversed_cycle(cycle):
 
 
 def find_nodup_cycles(genome_graph):
+    print('find_nodup_cycles')
     cycles = nx.simple_cycles(genome_graph)
+    print('found cycles', cycles)
     cycle_nodup = []
     # eliminates cycles that are the same but in the other strand
+    
     for cycle in cycles:
         if set(reversed_cycle(cycle)) not in [set(cycle) for cycle in cycle_nodup]:
             cycle_nodup.append(cycle)
+    
+    print('end of nodup')
+    
     return cycle_nodup
 
 
 def cycles_to_fasta(genome_graph, cycles, output="./cycles.fasta", shorter_than=None):
-
+    print('cycles_to_fasta')
     with open(output, "w") as to_file:
         for cycle in cycles:
             sequence = ""
             length = len(cycle)
             for i in range(len(cycle)):
+
                 overlap = genome_graph.edges[(cycle[i], cycle[(i + 1) % length])]["Overlap"]
 
                 #Since sequences overlap they can not be added back to back, this determines the length of overlap from
@@ -102,7 +109,7 @@ def cycles_to_fasta(genome_graph, cycles, output="./cycles.fasta", shorter_than=
                 to_file.write(sequence)
 
 def cycle_finder_driver(path_to_gfa, output="./cycles.fasta", shorter_than=None):
-
+    print('cycle_finder_driver')
     node_dict, edge_dict = parse_gfa(path_to_gfa)
     genome_graph = generate_genome_graph(node_dict, edge_dict)
     cycles = find_nodup_cycles(genome_graph)

@@ -9,11 +9,11 @@ from assembly_module import assembly_driver
 from cycle_finder import cycle_finder_driver
 from kmer_choser import best_kmer
 from is_analysis_module import insertion_sequence_finder
-from annotation module import *
+from annotation_module import *
 from datetime import datetime
 
 td = datetime.now()
-dt_string = td.strftime("%d-%m-%Y-%H-%M-%S")
+dt_string = td.strftime("%d-%m-%Y")
 
 parser = argparse.ArgumentParser(description='PICOTA: Composite Transposon Finder')
 parser.add_argument('rawreads', nargs="+", type=str, help='Path to raw reads')
@@ -25,13 +25,13 @@ parser.add_argument('--ilengthfilter', '-t' ,default=None, type=int, help='Lengt
 parser.add_argument('--outfiltering', '-f', default='/filtering', help='Output file for filtering')
 parser.add_argument('--outassembly', '-a', default='/assembly', help='Output file for assembly')
 parser.add_argument('--outcycles', '-c', default='/cycles', help='Output file for cycles')
-parser.add_argument('--cyclefasta', '-s', default='cycles_no1.fasta', help='Output fasta file for cycles')
-parser.add_argument('--threads', '-t', default=2, type=int, help='Main output file for the run')
+parser.add_argument('--cyclefasta', '-s', default='/cycles_no1.fasta', help='Output fasta file for cycles')
+parser.add_argument('--threads', '-th', default=2, type=int, help='Main output file for the run')
 parser.add_argument('--outis', '-i', default='/IS_Find', help='Output file for IS_Finder')
-parser.add_argument('--outfiltered', '-f', default='"filtered_out.fasta', help='Output file for filtered cycles')
+parser.add_argument('--outfiltered', '-fd', default='/filtered_out.fasta', help='Output file for filtered cycles')
 parser.add_argument('--outannotation', '-k', default='/annotation', help='Output file for annotations')
 parser.add_argument('--outnovel', '-n', default='/novel', help='Output file for novel transposons')
-parser.add_argument('--klist', '-k' ,default=[], nargs="+", type=int, help='Number of kmers to run')
+parser.add_argument('--klist', '-kl' ,default=[], nargs="+", type=int, help='Number of kmers to run')
 args = parser.parse_args()
 
 # ----------------------------------------------------------------
@@ -47,18 +47,26 @@ raw_file = args.rawreads #USER-(required)-a list of raw files, for sinle end fil
 out_folder_for_filtering = out_folder + args.outfiltering #USER-(can be optional) +
 if not os.path.exists(out_folder_for_filtering):
         os.makedirs(out_folder_for_filtering)
-raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_folder_for_filtering)
+
+
+#######!!!!!!!!!!!!!!!!!!!!!!!!
+#raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_folder_for_filtering)
+
 out_folder_for_assembly = out_folder + args.outassembly #USER-(can be optional) ++
 k_list = args.klist #USER-(optional) ++
 # k_list = [] is optional argument user can select wanted k-mers, only odd numbers
 
-assembly_driver(raw_file, file_end_type, out_folder_for_assembly, threads=12, k_list=k_list)
+
+fastq_filtered_list = glob.glob(out_folder_for_filtering + '/filtered*.fastq')
+print(fastq_filtered_list)
+#######!!!!!!!!!!!!!!!!!!!!!!!!
+#assembly_driver(fastq_filtered_list, file_end_type, out_folder_for_assembly, threads=12, k_list=k_list)
 
 
 # ----------------------------------------------------------------
 # FILTERING AND ASSEMBLY
 # ----------------------------------------------------------------
-best_kmer_file = kmer_choser(out_folder_for_assembly)
+best_kmer_file = best_kmer(out_folder_for_assembly + '/gfa_files')
 cycles_file_path =  out_folder + args.outcycles #USER-(can be optional or given by the system) ++
 if not os.path.exists(cycles_file_path):
         os.makedirs(cycles_file_path)
@@ -73,8 +81,11 @@ cycle_finder_driver(best_kmer_file, output=cycles_file_path, shorter_than=initia
 
 threads = args.threads #USER-(can be optional) ++
 out_folder_for_IS = out_folder + args.outis #USER-(can be optional or given by the system) ++
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!dsadsadsa
 insertion_sequence_finder(cycles_file_path, out_folder= out_folder_for_IS, threads=threads)
-IS_result_file = out_folder_for_IS + "/" + cycles_file_path + ".sum"   #USER-(can be optional or given by the system) -
+
+IS_result_file = out_folder_for_IS + args.outcycles + cycles_fasta + ".sum"   #USER-(can be optional or given by the system) -
 out_filtered_path = out_folder + args.outfiltered #USER-(can be optional or given by the system) ++
 parse_driver(IS_result_file, cycles_file_path, out_filtered_path)
 

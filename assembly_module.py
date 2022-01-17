@@ -24,7 +24,7 @@ Usage:
 # file path is list
 def assembly_driver(file_path, file_end_type,  out_folder, threads=1,k_list = []):
     if k_list == []:
-      k_mer_value = '--k-list' + ''
+      k_mer_value = ''
     else:
       k_mer_value = '--k-list' + ','.join(k_list)
     

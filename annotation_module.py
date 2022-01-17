@@ -3,7 +3,7 @@ import os
 import glob
 from Bio import SeqIO
 from isescan_parser import parse_driver
-from isescan_parse import parse_novel_driver
+from isescan_parser import parse_novel_driver
 
 # ----------------------------------------------------------------
 # 8- ANNOTATION
