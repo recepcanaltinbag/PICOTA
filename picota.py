@@ -93,25 +93,29 @@ parse_driver(IS_result_file, cycles_file_path, out_filtered_path)
 # ----------------------------------------------------------------
 # 8- ANNOTATION
 # ----------------------------------------------------------------
-annotation_out = out_folder + args.outannotation #USER-(can be optional or given by the system) ++
-annotation_driver(out_filtered_path, annotation_out)  
+try:
+        annotation_out = out_folder + args.outannotation #USER-(can be optional or given by the system) ++
+        annotation_driver(out_filtered_path, annotation_out)  
 
 
 
 
-# ----------------------------------------------------------------
-# 8- ANNOTATION for NOVELTY SEARCH
-# ----------------------------------------------------------------
+        # ----------------------------------------------------------------
+        # 8- ANNOTATION for NOVELTY SEARCH
+        # ----------------------------------------------------------------
 
-out_novel_path = out_folder + args.outnovel  #USER-(can be optional or given by the system) ++
-if not os.path.exists(out_novel_path):
-        os.makedirs(out_novel_path)
+        out_novel_path = out_folder + args.outnovel  #USER-(can be optional or given by the system) ++
+        if not os.path.exists(out_novel_path):
+                os.makedirs(out_novel_path)
 
-annotation_driver_for_novelty(IS_result_file, cycle_file, out_novel_path, annotation_out)
-
-
+        annotation_driver_for_novelty(IS_result_file, cycle_file, out_novel_path, annotation_out)
 
 
+except:
+        print ('Prokka must be controlled, exiting from the program')
+
+
+print('\n\n\nEND OF THE PIPELINE')
 
 
 
