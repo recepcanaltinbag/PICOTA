@@ -15,7 +15,8 @@ def best_kmer(kmer_file_loc):
         for node in genome_graph.nodes():
             if len(genome_graph.in_edges(node)) > 0 and len(genome_graph.out_edges(node)) == 0:
                 deadends += 1
-
+        if deadends == 0:
+            continue
         curr_score = 1/(len(genome_graph.nodes())*(deadends*2))
         print('Score: ', curr_score)
         if curr_score < curr_best_score:

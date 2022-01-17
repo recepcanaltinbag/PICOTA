@@ -64,7 +64,7 @@ assembly_driver(fastq_filtered_list, file_end_type, out_folder_for_assembly, thr
 
 
 # ----------------------------------------------------------------
-# FILTERING AND ASSEMBLY
+# CYCLE DETECTION
 # ----------------------------------------------------------------
 best_kmer_file = best_kmer(out_folder_for_assembly + '/gfa_files')
 cycles_file_path =  out_folder + args.outcycles #USER-(can be optional or given by the system) ++
