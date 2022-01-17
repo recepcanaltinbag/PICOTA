@@ -24,9 +24,12 @@ Usage:
 # file path is list
 def assembly_driver(file_path, file_end_type,  out_folder, threads=1,k_list = []):
     if k_list == []:
-      k_mer_value = '--k-list' + ''
+        k_mer_value = ''
     else:
-      k_mer_value = '--k-list' + ','.join(k_list)
+        str_list = []
+        for element in k_list:
+            str_list.append(str(element))
+        k_mer_value = '--k-list ' + ','.join(str_list)
     
     if file_end_type == "se":
         args = f"programs/megahit/build/megahit -r {file_path[0]} -o {out_folder} -t {str(threads)} --keep-tmp-files {k_mer_value}" 
@@ -51,7 +54,8 @@ def convert_to_fastg_and_gfa(assembly_path):
     file_list = glob.glob(intermediate_path + '/*.contigs.fa')
 
     for contig_file in file_list:
-        mega_toolkit_driver(contig_file, fastg_out, gfa_out)
+        if 'final' not in contig_file:
+            mega_toolkit_driver(contig_file, fastg_out, gfa_out)
 
     print(file_list)
 

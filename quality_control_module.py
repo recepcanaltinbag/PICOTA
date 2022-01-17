@@ -21,7 +21,7 @@ def raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_fold
         filtered_raw_file_1_name = "filtered_" + raw_file_1_path.split('/')[-1].split('.')[0] 
         f1_path = out_folder + "/" + filtered_raw_file_1_name +".fastq"
         args = f"programs/sickle/sickle se -f {raw_file_1_path} -t {q_type} -q {qual_threshold} -o {f1_path}"
-        #my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
+        my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
         filtering_visualization(raw_file_1_path, out_folder)
         filtering_visualization(f1_path, out_folder)
 
@@ -32,8 +32,10 @@ def raw_read_filtering(raw_file, file_end_type, q_type, qual_threshold, out_fold
         filtered_raw_file_2_name = "filtered_" + raw_file_2_path.split('/')[-1].split('.')[0]
         f1_path = out_folder + "/" + filtered_raw_file_1_name +".fastq"
         f2_path = out_folder + "/" + filtered_raw_file_2_name +".fastq"
-        args = f"programs/sickle/sickle pe --pe-file1 {raw_file_1_path} --pe-file2 {raw_file_2_path} \
-            --qual-type {q_type} -q {qual_threshold} --output-pe1 {f1_path} --output-pe2 {f2_path}" 
+        s_path = out_folder + "/" + filtered_raw_file_2_name +"s.fastq"
+        args = f"programs/sickle/sickle pe -f {raw_file_1_path} -r {raw_file_2_path} \
+            -t {q_type} -q {qual_threshold} -o {f1_path} -p {f2_path} -s {s_path}" 
+        print(args)
         my_process = subprocess.run(args, shell=True, executable='/bin/bash', text=True, check=True)
         filtering_visualization(raw_file_1_path, out_folder)
         filtering_visualization(f1_path, out_folder)
