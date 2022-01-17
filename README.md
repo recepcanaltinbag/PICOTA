@@ -49,7 +49,7 @@ python picota.py test_data/raw_input/test.fastq se sanger -o test_out
 ```
 # Possible issues
 
-If you encounter permission denied error, the code below in the programs folder:
+If you encounter permission denied error, try the code below in the programs folder:
 
 ```
 chmod +577 *
